@@ -38,9 +38,12 @@ const setDB = (dbcompra) => localStorage.setItem('todolist' , JSON.stringify(dbc
     screenRender();
 
 const limpaDB = () => {
+        const limpa = window.confirm('Você realmente deseja apagar todos os itens?')
+        if (limpa === true) {
         const dbcompra = [];
         setDB(dbcompra);
         screenRender();
+        }
     }    
 
 const adicionaItem = (evento) => {
@@ -55,6 +58,16 @@ const adicionaItem = (evento) => {
     }
 
 }
+const adicionaBut = () => {
+        const texto = document.getElementById("newItem").value;
+        const dbcompra = getDB ();
+        dbcompra.push ({'text':texto,'tick':''})
+        setDB(dbcompra);
+        screenRender();
+        document.getElementById("newItem").value = '';
+    }
+
+
 
 const removeItem = (indice) => {
     const dbcompra = getDB();
@@ -68,6 +81,7 @@ const updateItem = (indice) => {
     dbcompra[indice].tick = dbcompra[indice].tick === '' ? 'checked' : '';
     setDB(dbcompra);
     screenRender ();
+    
 }
 /*const dbcompra = getDB();
     dbcompra[indice].tick = dbcompra[indice].tick === '' ? 'checked' : '';
@@ -92,4 +106,6 @@ const clickItem = (evento) => {
 document.getElementById('newItem').addEventListener('keypress',adicionaItem);
 document.getElementById('todoList').addEventListener('click', clickItem);
 document.getElementById('apagaTudo').addEventListener('click', limpaDB);
+document.getElementById('Adiciona').addEventListener('click', adicionaBut);
+
 
