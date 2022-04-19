@@ -84,39 +84,37 @@ const removeItem = (indice) => {
     screenRender ();
 }
 
-/*const removeComprados = (indice) => {
+const removeComprados = () => {
     
     const dbcompra = getDB();
-    array.find()
-    
-    dbcompra.splice (indice,1);
-    setDB (dbcompra);
-    screenRender ();
-    
-}*/
+    let conf = window.confirm(`Você confirma a compra dos itens selecionados? Eles serão excluídos da lista!!!`)
+    if (conf === true)
+    dbcompra.forEach(element => {
+        if (element.tick === 'checked') {
+            {
+                removeItem(element.indice)
+            }  
+        }
+    });
+}
 
 const updateItem = (indice) => {
     const dbcompra = getDB();
+    
     dbcompra[indice].tick = dbcompra[indice].tick === '' ? 'checked' : '';
     setDB(dbcompra);
     screenRender ();
     if (dbcompra[indice].tick === 'checked') {
-        let preco = parseFloat(window.prompt(`Qual é o valor do produto?`)).toFixed(2)
-        soma = parseFloat(soma)+parseFloat(preco).toFixed(2)
+        
+        let preco = (window.prompt(`Qual é o valor do produto?`))
+        soma += parseFloat(preco)
         document.getElementById('valorsoma').innerText = soma
     } 
     
     
     }
 
-/*const dbcompra = getDB();
-    dbcompra[indice].tick = dbcompra[indice].tick === '' ? 'checked' : '';
-    setDB(dbcompra);
-    screenRender ();
-    if (dbcompra[indice].tick === 'checked') {
-        const preco = window.prompt('Insira o valor do produto','')
-    
-*/
+
 
 const clickItem = (evento) => {
     const elemento = evento.target;
@@ -133,5 +131,6 @@ document.getElementById('newItem').addEventListener('keypress',adicionaItem);
 document.getElementById('todoList').addEventListener('click', clickItem);
 document.getElementById('apagaTudo').addEventListener('click', limpaDB);
 document.getElementById('Adiciona').addEventListener('click', adicionaBut);
+document.getElementById('apagaComprados').addEventListener('click', removeComprados);
 
 
