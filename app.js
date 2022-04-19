@@ -1,10 +1,5 @@
 'use strict';
-/*
-let dbcompra = [
-    {'text':'pão','tick':'null'},
-    {'text':'pão doce','tick':'null'},
-    {'text':'pão de foma','tick':'checked'}
-];*/
+
 
 const getDB = () => JSON.parse(localStorage.getItem('todolist')) ?? [];
 const setDB = (dbcompra) => localStorage.setItem('todolist' , JSON.stringify(dbcompra));
@@ -32,6 +27,7 @@ var soma = 0
     const screenRender = () => {
         screenClear()
         const dbcompra = getDB();
+        //if (dbcompra.item !== undefined) {
         dbcompra.forEach ( (item, indice) => criaItem (item.text, item.tick, indice));
     }
 
@@ -88,27 +84,55 @@ const removeComprados = () => {
     
     const dbcompra = getDB();
     let conf = window.confirm(`Você confirma a compra dos itens selecionados? Eles serão excluídos da lista!!!`)
-    if (conf === true)
-    dbcompra.forEach(element => {
-        if (element.tick === 'checked') {
-            {
-                removeItem(element.indice)
-            }  
-        }
-    });
-}
+    if (conf === true) {
+        
+        let iten1 = dbcompra
+        let indexador = iten1.length
+        dbcompra.forEach(element.tick===0,index => { 
+            if (element.tick === 'checked')
+            {removeItem}
+            
+        });
+        };
 
+    }
+
+
+
+/*
+const removeComprados = () => {
+    
+    const dbcompra = getDB();
+    let conf = window.confirm(`Você confirma a compra dos itens selecionados? Eles serão excluídos da lista!!!`)
+    if (conf === true) {
+        
+        let iten1 = dbcompra
+        let indexador = iten1.length
+        for (let i=0; i< indexador; i++) {
+            let conteudo = iten1[i]
+            if (conteudo.tick === 'checked') {
+                removeItem(i)
+
+            }
+
+        }
+
+        };
+
+    }
+*/
 const updateItem = (indice) => {
     const dbcompra = getDB();
     
     dbcompra[indice].tick = dbcompra[indice].tick === '' ? 'checked' : '';
     setDB(dbcompra);
-    screenRender ();
+    
     if (dbcompra[indice].tick === 'checked') {
         
         let preco = (window.prompt(`Qual é o valor do produto?`))
         soma += parseFloat(preco)
         document.getElementById('valorsoma').innerText = soma
+        screenRender ();
     } 
     
     
