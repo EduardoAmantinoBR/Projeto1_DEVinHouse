@@ -8,6 +8,8 @@ let dbcompra = [
 
 const getDB = () => JSON.parse(localStorage.getItem('todolist')) ?? [];
 const setDB = (dbcompra) => localStorage.setItem('todolist' , JSON.stringify(dbcompra));
+var soma = 0
+
 
 
             const criaItem = (text, tick, indice) => {
@@ -42,7 +44,9 @@ const limpaDB = () => {
         if (limpa === true) {
         const dbcompra = [];
         setDB(dbcompra);
+
         screenRender();
+        document.getElementById('valorsoma').innerText ='0'
         }
     }    
 
@@ -59,14 +63,18 @@ const adicionaItem = (evento) => {
 
 }
 const adicionaBut = () => {
+        if (document.getElementById("newItem").value !=[]) {
+
         const texto = document.getElementById("newItem").value;
         const dbcompra = getDB ();
         dbcompra.push ({'text':texto,'tick':''})
         setDB(dbcompra);
         screenRender();
         document.getElementById("newItem").value = '';
+    } else {
+        window.alert ('Preencha o campo para inserir um novo item!')
     }
-
+}
 
 
 const removeItem = (indice) => {
@@ -81,15 +89,22 @@ const updateItem = (indice) => {
     dbcompra[indice].tick = dbcompra[indice].tick === '' ? 'checked' : '';
     setDB(dbcompra);
     screenRender ();
+    if (dbcompra[indice].tick === 'checked') {
+        let preco = parseFloat(window.prompt(`Qual é o valor do produto?`)).toFixed(2)
+        soma = parseFloat(soma)+parseFloat(preco).toFixed(2)
+        document.getElementById('valorsoma').innerText = soma
+    } 
     
-}
+    
+    }
+
 /*const dbcompra = getDB();
     dbcompra[indice].tick = dbcompra[indice].tick === '' ? 'checked' : '';
     setDB(dbcompra);
     screenRender ();
     if (dbcompra[indice].tick === 'checked') {
         const preco = window.prompt('Insira o valor do produto','')
-    }
+    
 */
 
 const clickItem = (evento) => {
