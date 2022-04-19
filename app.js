@@ -84,6 +84,17 @@ const removeItem = (indice) => {
     screenRender ();
 }
 
+/*const removeComprados = (indice) => {
+    
+    const dbcompra = getDB();
+    array.find()
+    
+    dbcompra.splice (indice,1);
+    setDB (dbcompra);
+    screenRender ();
+    
+}*/
+
 const updateItem = (indice) => {
     const dbcompra = getDB();
     dbcompra[indice].tick = dbcompra[indice].tick === '' ? 'checked' : '';
